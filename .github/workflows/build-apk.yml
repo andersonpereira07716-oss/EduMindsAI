@@ -26,24 +26,19 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: Prebuild Android Project
-        run: npx expo prebuild --platform android
+      - name: Prebuild Android Native Code
+        run: npx expo prebuild --platform android --clean
 
-      - name: Generate Offline JS Bundle
-        run: |
-          mkdir -p android/app/src/main/assets
-          npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/ || npx expo export --platform android
-
-      - name: Build Android Release APK
+      - name: Build Standalone Android APK (Gradle)
         run: |
           cd android
           chmod +x gradlew
-          ./gradlew assembleRelease --no-daemon || ./gradlew assembleDebug --no-daemon
+          ./gradlew assembleRelease --no-daemon
+        env:
+          NODE_ENV: production
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
           name: EduMindsAI-APK
-          path: |
-            android/app/build/outputs/apk/release/*.apk
-            android/app/build/outputs/apk/debug/*.apk
+          path: android/app/build/outputs/apk/release/*.apk
