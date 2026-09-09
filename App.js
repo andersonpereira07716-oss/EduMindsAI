@@ -59,7 +59,7 @@ export default function App() {
         <Text style={styles.title}>EduMinds</Text>
         <TouchableOpacity style={styles.panicButton} onPress={handlePanicMode} activeOpacity={0.8}>
           <Text style={styles.panicIcon}>🛡️</Text>
-          <Text style={styles.panicButtonText}>Calm</Text>
+          <Text style={styles.panicButtonText}>Calma</Text>
         </TouchableOpacity>
       </View>
 
@@ -71,7 +71,7 @@ export default function App() {
             Sua trilha adaptativa é ajustada de acordo com o seu estado atual.
           </Text>
 
-          {/* Seleção de Humor com Emojis Separados */}
+          {/* Seleção de Humor Flexível */}
           <View style={styles.moodGrid}>
             {moods.map((item) => {
               const isSelected = selectedMood === item.id;
@@ -89,7 +89,10 @@ export default function App() {
                   onPress={() => setSelectedMood(item.id)}
                 >
                   <Text style={styles.chipIcon}>{item.icon}</Text>
-                  <Text style={[styles.chipText, { color: isSelected ? '#FFFFFF' : '#334155' }]}>
+                  <Text 
+                    numberOfLines={1} 
+                    style={[styles.chipText, { color: isSelected ? '#FFFFFF' : '#334155' }]}
+                  >
                     {item.label}
                   </Text>
                 </TouchableOpacity>
@@ -140,9 +143,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#EF4444',
-    paddingHorizontal: 12,
+    paddingHorizontal: 14,
     paddingVertical: 6,
-    borderRadius: 16,
+    borderRadius: 20,
+    minWidth: 80,
+    justifyContent: 'center',
   },
   panicIcon: {
     fontSize: 13,
@@ -183,22 +188,23 @@ const styles = StyleSheet.create({
   moodGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 10,
+    gap: 8,
   },
   moodChip: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 14,
-    paddingVertical: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 8,
     borderRadius: 20,
     borderWidth: 1,
+    flexShrink: 0,
   },
   chipIcon: {
-    fontSize: 15,
-    marginRight: 6,
+    fontSize: 14,
+    marginRight: 4,
   },
   chipText: {
-    fontSize: 14,
+    fontSize: 13,
     fontWeight: 'bold',
   },
   section: {
