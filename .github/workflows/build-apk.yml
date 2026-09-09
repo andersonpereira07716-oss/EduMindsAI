@@ -15,7 +15,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
 
       - name: Setup Java JDK
         uses: actions/setup-java@v4
@@ -32,12 +32,7 @@ jobs:
       - name: Bundle React Native JS (Offline)
         run: |
           mkdir -p android/app/src/main/assets
-          npx react-native bundle \
-            --platform android \
-            --dev false \
-            --entry-file index.js \
-            --bundle-output android/app/src/main/assets/index.android.bundle \
-            --assets-dest android/app/src/main/res/ || npx expo export:embed --platform android --dev false --output-dir android/app/src/main/assets
+          npx expo export:embed --platform android --dev false --asset-catalog-dest android/app/src/main/res/
 
       - name: Build Android Debug APK
         run: |
