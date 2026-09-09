@@ -14,10 +14,10 @@ export default function App() {
   const [selectedMood, setSelectedMood] = useState(null);
 
   const moods = [
-    { id: 'focado', label: '🎯 Focado', color: '#16A34A' },
-    { id: 'ansioso', label: '🧘 Calmo', color: '#D97706' },
-    { id: 'cansado', label: '😴 Leve', color: '#9333EA' },
-    { id: 'motivado', label: '🚀 Motivado', color: '#2563EB' },
+    { id: 'focado', icon: '🎯', label: 'Focado', color: '#16A34A' },
+    { id: 'ansioso', icon: '🧘', label: 'Calmo', color: '#D97706' },
+    { id: 'cansado', icon: '😴', label: 'Leve', color: '#9333EA' },
+    { id: 'motivado', icon: '🚀', label: 'Motivado', color: '#2563EB' },
   ];
 
   const tracks = {
@@ -59,7 +59,7 @@ export default function App() {
         <Text style={styles.title}>EduMinds</Text>
         <TouchableOpacity style={styles.panicButton} onPress={handlePanicMode} activeOpacity={0.8}>
           <Text style={styles.panicIcon}>🛡️</Text>
-          <Text style={styles.panicButtonText}>Calma</Text>
+          <Text style={styles.panicButtonText}>Calm</Text>
         </TouchableOpacity>
       </View>
 
@@ -71,7 +71,7 @@ export default function App() {
             Sua trilha adaptativa é ajustada de acordo com o seu estado atual.
           </Text>
 
-          {/* Seleção de Humor */}
+          {/* Seleção de Humor com Emojis Separados */}
           <View style={styles.moodGrid}>
             {moods.map((item) => {
               const isSelected = selectedMood === item.id;
@@ -81,11 +81,15 @@ export default function App() {
                   activeOpacity={0.7}
                   style={[
                     styles.moodChip,
-                    { backgroundColor: isSelected ? item.color : '#F1F5F9', borderColor: isSelected ? item.color : '#CBD5E1' }
+                    { 
+                      backgroundColor: isSelected ? item.color : '#F1F5F9', 
+                      borderColor: isSelected ? item.color : '#CBD5E1' 
+                    }
                   ]}
                   onPress={() => setSelectedMood(item.id)}
                 >
-                  <Text style={{ fontSize: 14, color: isSelected ? '#FFFFFF' : '#334155', fontWeight: 'bold' }}>
+                  <Text style={styles.chipIcon}>{item.icon}</Text>
+                  <Text style={[styles.chipText, { color: isSelected ? '#FFFFFF' : '#334155' }]}>
                     {item.label}
                   </Text>
                 </TouchableOpacity>
@@ -136,18 +140,18 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#EF4444',
-    paddingHorizontal: 10,
+    paddingHorizontal: 12,
     paddingVertical: 6,
     borderRadius: 16,
   },
   panicIcon: {
-    fontSize: 12,
+    fontSize: 13,
     marginRight: 4,
   },
   panicButtonText: {
     color: '#ffffff',
     fontWeight: 'bold',
-    fontSize: 12,
+    fontSize: 13,
   },
   content: {
     padding: 16,
@@ -179,15 +183,23 @@ const styles = StyleSheet.create({
   moodGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 8,
+    gap: 10,
   },
   moodChip: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 12,
-    paddingVertical: 8,
+    paddingHorizontal: 14,
+    paddingVertical: 10,
     borderRadius: 20,
     borderWidth: 1,
+  },
+  chipIcon: {
+    fontSize: 15,
+    marginRight: 6,
+  },
+  chipText: {
+    fontSize: 14,
+    fontWeight: 'bold',
   },
   section: {
     marginTop: 20,
