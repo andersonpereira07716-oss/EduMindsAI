@@ -57,8 +57,9 @@ export default function App() {
       {/* Header */}
       <View style={styles.header}>
         <Text style={styles.title}>EduMinds</Text>
-        <TouchableOpacity style={styles.panicButton} onPress={handlePanicMode}>
-          <Text style={styles.panicButtonText}>🛡️ Calma</Text>
+        <TouchableOpacity style={styles.panicButton} onPress={handlePanicMode} activeOpacity={0.8}>
+          <Text style={styles.panicIcon}>🛡️</Text>
+          <Text style={styles.panicButtonText}>Calma</Text>
         </TouchableOpacity>
       </View>
 
@@ -70,7 +71,7 @@ export default function App() {
             Sua trilha adaptativa é ajustada de acordo com o seu estado atual.
           </Text>
 
-          {/* Seleção de Humor Responsiva */}
+          {/* Seleção de Humor */}
           <View style={styles.moodGrid}>
             {moods.map((item) => {
               const isSelected = selectedMood === item.id;
@@ -80,11 +81,11 @@ export default function App() {
                   activeOpacity={0.7}
                   style={[
                     styles.moodChip,
-                    isSelected && { backgroundColor: item.color, borderColor: item.color }
+                    { backgroundColor: isSelected ? item.color : '#F1F5F9', borderColor: isSelected ? item.color : '#CBD5E1' }
                   ]}
                   onPress={() => setSelectedMood(item.id)}
                 >
-                  <Text style={[styles.moodText, isSelected && styles.moodTextSelected]}>
+                  <Text style={{ fontSize: 14, color: isSelected ? '#FFFFFF' : '#334155', fontWeight: 'bold' }}>
                     {item.label}
                   </Text>
                 </TouchableOpacity>
@@ -132,10 +133,16 @@ const styles = StyleSheet.create({
     color: '#1E293B',
   },
   panicButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
     backgroundColor: '#EF4444',
-    paddingHorizontal: 12,
+    paddingHorizontal: 10,
     paddingVertical: 6,
     borderRadius: 16,
+  },
+  panicIcon: {
+    fontSize: 12,
+    marginRight: 4,
   },
   panicButtonText: {
     color: '#ffffff',
@@ -175,22 +182,12 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   moodChip: {
-    paddingHorizontal: 14,
-    paddingVertical: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 12,
+    paddingVertical: 8,
     borderRadius: 20,
     borderWidth: 1,
-    borderColor: '#CBD5E1',
-    backgroundColor: '#F1F5F9',
-    alignSelf: 'flex-start',
-  },
-  moodText: {
-    fontSize: 14,
-    color: '#334155',
-    fontWeight: '500',
-  },
-  moodTextSelected: {
-    color: '#ffffff',
-    fontWeight: '700',
   },
   section: {
     marginTop: 20,
