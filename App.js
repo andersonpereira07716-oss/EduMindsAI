@@ -71,7 +71,7 @@ export default function App() {
             Sua trilha adaptativa é ajustada de acordo com o seu estado atual.
           </Text>
 
-          {/* Seleção de Humor Flexível */}
+          {/* Seleção de Humor Flexível sem Cortes */}
           <View style={styles.moodGrid}>
             {moods.map((item) => {
               const isSelected = selectedMood === item.id;
@@ -89,10 +89,7 @@ export default function App() {
                   onPress={() => setSelectedMood(item.id)}
                 >
                   <Text style={styles.chipIcon}>{item.icon}</Text>
-                  <Text 
-                    numberOfLines={1} 
-                    style={[styles.chipText, { color: isSelected ? '#FFFFFF' : '#334155' }]}
-                  >
+                  <Text style={[styles.chipText, { color: isSelected ? '#FFFFFF' : '#334155' }]}>
                     {item.label}
                   </Text>
                 </TouchableOpacity>
@@ -143,11 +140,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#EF4444',
-    paddingHorizontal: 14,
+    paddingHorizontal: 12,
     paddingVertical: 6,
     borderRadius: 20,
-    minWidth: 80,
-    justifyContent: 'center',
   },
   panicIcon: {
     fontSize: 13,
@@ -197,14 +192,14 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     borderRadius: 20,
     borderWidth: 1,
-    flexShrink: 0,
+    alignSelf: 'flex-start',
   },
   chipIcon: {
-    fontSize: 14,
+    fontSize: 13,
     marginRight: 4,
   },
   chipText: {
-    fontSize: 13,
+    fontSize: 12,
     fontWeight: 'bold',
   },
   section: {
