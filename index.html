@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EduMind</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+    body { background-color: #f8fafc; color: #1e293b; padding-bottom: 30px; }
+    
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 16px;
+      background-color: #ffffff;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .logo { font-size: 22px; font-weight: 800; color: #0f172a; }
+    .btn-calm {
+      background-color: #ef4444;
+      color: #ffffff;
+      border: none;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-weight: bold;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+    }
+
+    .container { padding: 16px; }
+
+    .card {
+      background-color: #ffffff;
+      border-radius: 16px;
+      padding: 18px;
+      border-left: 5px solid #2563eb;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+      margin-bottom: 20px;
+    }
+    .card-title { font-size: 18px; font-weight: 700; color: #0f172a; margin-bottom: 6px; }
+    .card-subtitle { font-size: 13px; color: #64748b; margin-bottom: 16px; line-height: 1.4; }
+
+    .mood-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    /* CSS corrigido para evitar corte de texto */
+    .mood-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px !important;
+      border-radius: 20px;
+      border: 1px solid #cbd5e1;
+      background-color: #f1f5f9;
+      color: #334155;
+      font-size: 14px;
+      font-weight: 700;
+      white-space: nowrap !important; /* Impede quebrar linha na palavra */
+      width: auto !important; /* Garante tamanho dinâmico */
+      min-width: max-content;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .mood-chip.active {
+      background-color: #2563eb;
+      border-color: #2563eb;
+      color: #ffffff;
+    }
+
+    .track-section { display: none; }
+    .track-section.active { display: block; }
+    .section-title { font-size: 16px; font-weight: 700; color: #0f172a; margin-bottom: 12px; }
+
+    .track-card {
+      background-color: #ffffff;
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 10px;
+      border: 1px solid #e2e8f0;
+    }
+    .track-title { font-size: 15px; font-weight: 700; color: #2563eb; margin-bottom: 4px; }
+    .track-desc { font-size: 13px; color: #64748b; line-height: 1.4; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">EduMind</div>
+    <button class="btn-calm" onclick="alert('Respire fundo. Técnica de relaxamento iniciada.')">
+      🛡️ Calm
+    </button>
+  </header>
+
+  <div class="container">
+    <div class="card">
+      <div class="card-title">Olá! Como você está hoje?</div>
+      <div class="card-subtitle">Sua trilha adaptativa é ajustada de acordo com o seu estado atual.</div>
+
+      <div class="mood-grid">
+        <button class="mood-chip" onclick="selectMood('focado', this)">🎯 Focado</button>
+        <button class="mood-chip" onclick="selectMood('calmo', this)">🧘 Calmo</button>
+        <button class="mood-chip" onclick="selectMood('leve', this)">😴 Leve</button>
+        <button class="mood-chip" onclick="selectMood('motivado', this)">🚀 Motivado</button>
+      </div>
+    </div>
+
+    <div id="tracks" class="track-section">
+      <div class="section-title">Trilha Recomendada para Você</div>
+      <div id="track-content"></div>
+    </div>
+  </div>
+
+  <script>
+    const tracks = {
+      focado: [
+        { title: 'Sessão Intensa de Foco', desc: '45 min de estudo focado com exercícios avançados.' },
+        { title: 'Desafio Prático', desc: 'Resolução de 5 questões complexas.' }
+      ],
+      calmo: [
+        { title: 'Técnica de Respiração 4-7-8', desc: '5 min para estabilizar o foco antes dos estudos.' },
+        { title: 'Revisão Leve', desc: 'Leitura interativa de resumos visuais.' }
+      ],
+      leve: [
+        { title: 'Micro-aprendizado', desc: 'Sessão de 10 min com conceitos em flashcards.' },
+        { title: 'Áudio Guia', desc: 'Escute as definições principais sem forçar a visão.' }
+      ],
+      motivado: [
+        { title: 'Avançar Módulo', desc: 'Aprenda um novo conceito do seu curso hoje.' },
+        { title: 'Simulado Rápido', desc: 'Teste seus conhecimentos gerais.' }
+      ]
+    };
+
+    function selectMood(mood, element) {
+      document.querySelectorAll('.mood-chip').forEach(el => el.classList.remove('active'));
+      element.classList.add('active');
+
+      const container = document.getElementById('tracks');
+      const content = document.getElementById('track-content');
+      
+      content.innerHTML = tracks[mood].map(t => `
+        <div class="track-card">
+          <div class="track-title">${t.title}</div>
+          <div class="track-desc">${t.desc}</div>
+        </div>
+      `).join('');
+
+      container.classList.add('active');
+    }
+  </script>
+</body>
+</html>
